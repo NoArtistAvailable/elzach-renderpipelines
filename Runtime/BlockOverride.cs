@@ -40,15 +40,12 @@ public class BlockOverride : MonoBehaviour
     MaterialPropertyBlock block;
     public List<MaterialOverride> overrides = new List<MaterialOverride>();
 
-    private void OnEnable()
-    {
-        Set();
-    }
+    private void OnEnable() => Set();
+    private void OnValidate() => Set();
+    
+    private void OnDisable() => Rend.SetPropertyBlock(new MaterialPropertyBlock());
 
-    private void OnValidate()
-    {
-        Set();
-    }
+
 
 
     [ContextMenu("Log Properties")]
