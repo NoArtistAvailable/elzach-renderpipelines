@@ -1,0 +1,14 @@
+{
+  "name": "com.elzach.renderpipelines",
+  "description": "Scripts extending access to unitys scriptable renderpipelines and general rendering utility",
+  "author": { "name":"elZach", "email":"dontmessageme","url":"-" },
+  "version": "0.0.1",
+  "unity": "2020.3",
+  "unityRelease":"0a1",
+  "displayName": "elzach Renderpipelines",
+  "keywords": [ "unity" ],
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/felix.reinemann/elzach-objectpooling"
+  }
+}
