@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 using UnityEngine.Rendering;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Renderer))]
 [ExecuteAlways]

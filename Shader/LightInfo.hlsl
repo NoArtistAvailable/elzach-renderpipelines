@@ -81,6 +81,32 @@ void MainLightShadows_float (float3 WorldPos, out float ShadowAtten){
 	#endif
 }
 
+void AdditionalLightShadows_float(float3 WorldPos, int LightIndex, out float ShadowAtten)
+{
+	#ifdef SHADERGRAPH_PREVIEW
+	ShadowAtten = 1;
+	#else
+	{
+		float4 shadowCoord = TransformWorldToShadowCoord(WorldPos);
+
+		// int pixelLightCount = GetAdditionalLightsCount();
+		// for (int i = 0; i < pixelLightCount; ++i) {
+		Light light = GetAdditionalLight(LightIndex, WorldPos, shadowCoord);
+		/*
+		URP v10.1.0 introduced an additional shadowMask parameter, which is required for additional lights to do shadow calculations.
+		The purpose of this is to support the ShadowMask baked lighting mode.
+		The "correct" way to support it is to use :
+		inputData.shadowMask = SAMPLE_SHADOWMASK(input.lightmapUV);
+		inside the fragment shader. lightmapUV is TEXCOORD1 input passed through vert->frag
+		It would also need the SHADOWS_SHADOWMASK keyword to be defined if using an Unlit Graph. (maybe also LIGHTMAP_SHADOW_MIXING)
+		Since this should only be sampled once, it should likely be a separate node and passed in.
+		For now, I'm ignoring support for ShadowMask, and just using half4(1,1,1,1)
+		*/
+		ShadowAtten = light.shadowAttenuation;
+	}
+	#endif
+}
+
 /*
 To Do / Notes
 - Currently this method only supports realtime shadows, but there's also baked shadows to look into (shadow masks, introduced in v10). 

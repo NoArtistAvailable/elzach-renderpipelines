@@ -6,26 +6,22 @@ using UnityEditor;
 [CustomEditor(typeof(BlockOverride))]
 public class BlockOverrideEditor : Editor
 {
-    int         _selected   = 0;
-    string[]    _options    = new string[3] { "Item1", "Item2", "Item3" };
-    private bool fold;
-    
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        if (fold = EditorGUILayout.Foldout(fold, "Add Override"))
+        if (GUILayout.Button("Add Override"))
         {
             var t = target as BlockOverride;
-            var shader = t.Rend.sharedMaterial.shader;
-            _options = new string[shader.GetPropertyCount()];
-            for (int i = 0; i < _options.Length; i++)
-                _options[i] = shader.GetPropertyName(i);
-            EditorGUI.BeginChangeCheck();
-            this._selected = EditorGUILayout.Popup(GUIContent.none, _selected, _options);
-            if (EditorGUI.EndChangeCheck())
+            var shader = t?.Rend.sharedMaterial.shader;
+            if (shader == null) return;
+            var menu = new GenericMenu();
+            var options = new string[shader.GetPropertyCount()];
+            for (int i = 0; i < options.Length; i++)
             {
-                t.CreateOverride(_selected);
+                var i1 = i;
+                menu.AddItem(new GUIContent(shader.GetPropertyName(i1)), false, () => t.CreateOverride(i1));
             }
+            menu.ShowAsContext();
         }
     }
 }
