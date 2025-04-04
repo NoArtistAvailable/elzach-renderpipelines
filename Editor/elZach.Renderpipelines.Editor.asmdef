@@ -2,7 +2,8 @@
     "name": "elZach.Renderpipelines.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:fb0a92d671fbc8a4890dd245f77ff806"
+        "GUID:fb0a92d671fbc8a4890dd245f77ff806",
+        "GUID:343deaaf83e0cee4ca978e7df0b80d21"
     ],
     "includePlatforms": [
         "Editor"
